@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, Folder, FolderOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Category, categories } from "@/data/toolsData";
 
@@ -54,16 +53,21 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
           }
         }}
         className={cn(
-          "flex items-center justify-between py-2 px-3 rounded-md mb-1 transition-colors",
+          "flex items-center py-2 px-3 rounded-md mb-1 transition-colors space-x-2",
           isActive ? "bg-gray-100 text-theme-purple font-medium" : "hover:bg-gray-50",
           level === 0 ? "font-medium" : "text-sm",
           level === 1 ? "pl-6" : "",
           level === 2 ? "pl-10 text-sm" : ""
         )}
       >
+        {hasSubCategories ? (
+          isExpanded ? <FolderOpen className="h-4 w-4 shrink-0" /> : <Folder className="h-4 w-4 shrink-0" />
+        ) : (
+          <Folder className="h-4 w-4 shrink-0" />
+        )}
         <span>{category.name}</span>
         {hasSubCategories && (
-          <span className="text-gray-400">
+          <span className="ml-auto text-gray-400">
             {isExpanded ? (
               <ChevronDown className="h-4 w-4" />
             ) : (
@@ -123,7 +127,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
       
-      {/* Mobile overlay to close sidebar when clicked outside */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
