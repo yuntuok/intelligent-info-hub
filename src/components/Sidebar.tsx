@@ -78,7 +78,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
       </Link>
       
       {hasSubCategories && isExpanded && (
-        <div className="ml-2 border-l border-gray-200 pl-1">
+        <div className="ml-2 pl-1">
           {category.subCategories.map((subCategory) => (
             <CategoryItem
               key={subCategory.id}
