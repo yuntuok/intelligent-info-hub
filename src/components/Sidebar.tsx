@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, ChevronRight } from "lucide-react";
@@ -37,13 +38,12 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
   return (
     <div className="w-full">
       <Link
-        to={hasSubCategories ? "#" : `/${category.id}`}
+        to={`/${category.id}`}
         onClick={(e) => {
           if (hasSubCategories) {
             toggleExpand(e);
-          } else {
-            closeSidebar();
           }
+          closeSidebar();
         }}
         className={cn(
           "flex items-center py-2 px-3 rounded-md mb-1 transition-colors",
@@ -67,14 +67,17 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
       {hasSubCategories && isExpanded && (
         <div className="ml-2 pl-1">
           {category.subCategories.map((subCategory) => (
-            <CategoryItem
+            <Link
               key={subCategory.id}
-              category={subCategory}
-              level={level + 1}
-              currentCategory={currentCategory}
-              currentSubCategory={currentSubCategory}
-              closeSidebar={closeSidebar}
-            />
+              to={`/${category.id}/subcategory/${subCategory.id}`}
+              onClick={closeSidebar}
+              className={cn(
+                "flex items-center py-2 px-3 pl-6 rounded-md mb-1 transition-colors text-sm",
+                currentSubCategory === subCategory.id ? "bg-gray-100 text-theme-purple font-medium" : "hover:bg-gray-50"
+              )}
+            >
+              {subCategory.name}
+            </Link>
           ))}
         </div>
       )}

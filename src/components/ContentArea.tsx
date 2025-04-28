@@ -33,54 +33,41 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     }
     return <DetailView tool={tool} />;
   }
-  
-  // Category view - show tools in a specific category
-  if (view === "category" && categoryId) {
-    const category = getCategoryInfo(categoryId);
-    const tools = subcategoryId
-      ? getToolsByCategory(categoryId, subcategoryId)
-      : getToolsByCategory(categoryId);
-      
-    return (
-      <div className="p-6">
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">{category.name}</h2>
-          {category.subCategories && category.subCategories.length > 0 && (
-            <Tabs 
-              defaultValue={subcategoryId || category.subCategories[0].id}
-              className="mt-4"
-            >
-              <TabsList>
-                {category.subCategories.map(sub => (
-                  <TabsTrigger key={sub.id} value={sub.id}>
-                    {sub.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          )}
-        </div>
-        <CardGrid tools={tools} />
-      </div>
-    );
-  }
-  
+
   // Home view - show all categories with their tools
   return (
     <div className="p-6 space-y-12">
       {categories.map(category => {
-        const tools = getToolsByCategory(category.id);
+        const tools = getToolsByCategory(category.id, subcategoryId);
         if (tools.length === 0) return null;
+        
+        // If we're in category view and this is not the selected category, skip
+        if (view === "category" && categoryId && category.id !== categoryId) {
+          return null;
+        }
         
         return (
           <div key={category.id} className="space-y-6">
             <div className="border-b border-gray-200 pb-4">
               <h2 className="text-2xl font-semibold">{category.name}</h2>
               {category.subCategories && category.subCategories.length > 0 && (
-                <Tabs defaultValue={category.subCategories[0].id} className="mt-4">
+                <Tabs 
+                  defaultValue={subcategoryId || category.subCategories[0].id}
+                  className="mt-4"
+                >
                   <TabsList>
                     {category.subCategories.map(sub => (
-                      <TabsTrigger key={sub.id} value={sub.id}>
+                      <TabsTrigger 
+                        key={sub.id} 
+                        value={sub.id}
+                        onClick={() => {
+                          window.history.pushState(
+                            {}, 
+                            "", 
+                            `/${category.id}/subcategory/${sub.id}`
+                          );
+                        }}
+                      >
                         {sub.name}
                       </TabsTrigger>
                     ))}
