@@ -1,4 +1,3 @@
-
 // Sample data for AI tools and applications
 export interface Tool {
   id: string;
@@ -25,18 +24,10 @@ export const categories: Category[] = [
       {
         id: 'text-generation',
         name: '文本生成',
-        subCategories: [
-          { id: 'copywriting', name: '文案写作' },
-          { id: 'content-summarization', name: '内容摘要' },
-        ]
       },
       {
         id: 'image-generation',
         name: '图像生成',
-        subCategories: [
-          { id: 'art', name: '艺术创作' },
-          { id: 'photo-realistic', name: '照片级真实图像' },
-        ]
       },
       { id: 'voice', name: '语音工具' },
       { id: 'video', name: '视频工具' },
@@ -54,6 +45,14 @@ export const categories: Category[] = [
   {
     id: 'free-image-gen',
     name: '免费AI生图',
+  },
+  {
+    id: 'free-video-gen',
+    name: '免费AI生视频',
+  },
+  {
+    id: 'ai-news',
+    name: '最新AI动态',
   },
 ];
 
@@ -102,7 +101,7 @@ export const tools: Tool[] = [
       
       <h3>核心特点</h3>
       <ul>
-        <li>高清输出：可生成最高4K分辨率的图像</li>
+        <li>高清���出：可生成最高4K分辨率的图像</li>
         <li>多样化风格：支持照片写实、动漫、油画、水彩等多种艺术风格</li>
         <li>精确控制：细致的提示工程和参数调整选项</li>
         <li>批量生成：同时生成多个变体供选择</li>

@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Category } from "@/data/toolsData";
+import { Category, categories } from "@/data/toolsData";
 
 interface CategoryItemProps {
   category: Category;
@@ -129,4 +128,3 @@ const Sidebar: React.FC<SidebarProps> = ({
 };
 
 export default Sidebar;
-

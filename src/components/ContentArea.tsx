@@ -25,43 +25,6 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     return category;
   };
 
-  // Home view - show featured tools
-  if (view === "home") {
-    return (
-      <div className="p-6 space-y-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">欢迎来到 AI 智能工具导航</h1>
-          <p className="text-gray-600">发现和使用最前沿的人工智能工具和应用</p>
-        </div>
-        
-        {categories.map(category => {
-          const tools = getToolsByCategory(category.id);
-          if (tools.length === 0) return null;
-          
-          return (
-            <div key={category.id} className="space-y-6">
-              <div className="border-b border-gray-200 pb-4">
-                <h2 className="text-2xl font-semibold">{category.name}</h2>
-                {category.subCategories && category.subCategories.length > 0 && (
-                  <Tabs defaultValue={category.subCategories[0].id} className="mt-4">
-                    <TabsList>
-                      {category.subCategories.map(sub => (
-                        <TabsTrigger key={sub.id} value={sub.id}>
-                          {sub.name}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-                  </Tabs>
-                )}
-              </div>
-              <CardGrid tools={tools} />
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-  
   // Detail view - show single tool details
   if (view === "detail" && toolId) {
     const tool = getTool(toolId);
@@ -71,7 +34,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     return <DetailView tool={tool} />;
   }
   
-  // Category view - show tools in a category
+  // Category view - show tools in a specific category
   if (view === "category" && categoryId) {
     const category = getCategoryInfo(categoryId);
     const tools = subcategoryId
@@ -102,9 +65,33 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     );
   }
   
+  // Home view - show all categories with their tools
   return (
-    <div className="p-6">
-      <p>选择一个分类查看相关工具</p>
+    <div className="p-6 space-y-12">
+      {categories.map(category => {
+        const tools = getToolsByCategory(category.id);
+        if (tools.length === 0) return null;
+        
+        return (
+          <div key={category.id} className="space-y-6">
+            <div className="border-b border-gray-200 pb-4">
+              <h2 className="text-2xl font-semibold">{category.name}</h2>
+              {category.subCategories && category.subCategories.length > 0 && (
+                <Tabs defaultValue={category.subCategories[0].id} className="mt-4">
+                  <TabsList>
+                    {category.subCategories.map(sub => (
+                      <TabsTrigger key={sub.id} value={sub.id}>
+                        {sub.name}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </Tabs>
+              )}
+            </div>
+            <CardGrid tools={tools} />
+          </div>
+        );
+      })}
     </div>
   );
 };
