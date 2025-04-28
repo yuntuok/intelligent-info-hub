@@ -47,14 +47,12 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
           }
         }}
         className={cn(
-          "flex items-center py-2 px-3 rounded-md mb-1 transition-colors space-x-2",
+          "flex items-center py-2 px-3 rounded-md mb-1 transition-colors",
           isActive ? "bg-gray-100 text-theme-purple font-medium" : "hover:bg-gray-50",
           level === 0 ? "font-medium" : "",
           level === 1 ? "pl-6 text-sm" : ""
         )}
       >
-        {/* 使用category的自定义图标 */}
-        <span className="w-4 h-4 shrink-0">{category.icon}</span>
         <span>{category.name}</span>
         {hasSubCategories && (
           <span className="ml-auto text-gray-400">
@@ -84,6 +82,13 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
     </div>
   );
 };
+
+interface SidebarProps {
+  isOpen: boolean;
+  closeSidebar: () => void;
+  currentCategory?: string;
+  currentSubCategory?: string;
+}
 
 const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
@@ -124,3 +129,4 @@ const Sidebar: React.FC<SidebarProps> = ({
 };
 
 export default Sidebar;
+
