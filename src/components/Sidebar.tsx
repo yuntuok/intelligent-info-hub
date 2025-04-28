@@ -1,15 +1,9 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ChevronRight, Folder, FolderOpen } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Category, categories } from "@/data/toolsData";
-
-interface SidebarProps {
-  isOpen: boolean;
-  closeSidebar: () => void;
-  currentCategory?: string;
-  currentSubCategory?: string;
-}
+import { Category } from "@/data/toolsData";
 
 interface CategoryItemProps {
   category: Category;
@@ -55,16 +49,12 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
         className={cn(
           "flex items-center py-2 px-3 rounded-md mb-1 transition-colors space-x-2",
           isActive ? "bg-gray-100 text-theme-purple font-medium" : "hover:bg-gray-50",
-          level === 0 ? "font-medium" : "text-sm",
-          level === 1 ? "pl-6" : "",
-          level === 2 ? "pl-10 text-sm" : ""
+          level === 0 ? "font-medium" : "",
+          level === 1 ? "pl-6 text-sm" : ""
         )}
       >
-        {hasSubCategories ? (
-          isExpanded ? <FolderOpen className="h-4 w-4 shrink-0" /> : <Folder className="h-4 w-4 shrink-0" />
-        ) : (
-          <Folder className="h-4 w-4 shrink-0" />
-        )}
+        {/* 使用category的自定义图标 */}
+        <span className="w-4 h-4 shrink-0">{category.icon}</span>
         <span>{category.name}</span>
         {hasSubCategories && (
           <span className="ml-auto text-gray-400">
@@ -109,10 +99,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       )}
     >
       <div className="flex flex-col h-full">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-bold">分类导航</h2>
-        </div>
-        
         <div className="flex-1 overflow-y-auto p-4 space-y-1">
           {categories.map((category) => (
             <CategoryItem

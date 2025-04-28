@@ -50,6 +50,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             <Link to="/free-image-gen" className="font-medium hover:text-theme-blue transition-colors">
               免费AI生图
             </Link>
+            <Link to="/free-video-gen" className="font-medium hover:text-theme-blue transition-colors">
+              免费AI生视频
+            </Link>
+            <Link to="/ai-news" className="font-medium hover:text-theme-blue transition-colors">
+              最新AI动态
+            </Link>
           </nav>
 
           {/* Right side: Search and user */}

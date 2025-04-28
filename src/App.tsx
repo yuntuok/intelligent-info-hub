@@ -20,10 +20,11 @@ const App = () => (
           <Route path="/ai-tools" element={<Index />} />
           <Route path="/ai-applications" element={<Index />} />
           <Route path="/free-image-gen" element={<Index />} />
+          <Route path="/free-video-gen" element={<Index />} />
+          <Route path="/ai-news" element={<Index />} />
           <Route path="/tool/:id" element={<Index />} />
           <Route path="/:category" element={<Index />} />
           <Route path="/:category/subcategory/:subcategory" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
